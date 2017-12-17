@@ -1,6 +1,6 @@
 # microPanzerkampfwagen
 
-In the scope of the Computers discipline we (@fpimenta @ ) had to develop a final project to apply all the knowledge learned during the course. We developed a chipkit UNO32 based Panzer, connected trough bluetooth to an app we developed using MIT App Inventor. The robot also informs it's location via GPS/GSM module.
+In the scope of the Computers discipline we ([Francisco Pimenta](https://github.com/fpimenta) and [João Morais] ) had to develop a final project to apply all the knowledge learned during the course. We developed a chipkit UNO32 based Panzer, connected trough bluetooth to an app we developed using MIT App Inventor. The robot also informs it's GPS location via GSM, by posting it to a server mounted on Heroku and sending an SMS when requested.
 
 ## The Robot
 We used a car kit we had laying around, similar to the one in the image
@@ -9,28 +9,28 @@ We used a car kit we had laying around, similar to the one in the image
 
 We powered the car with 3x 18650 batteries and the CHIPkits with a 5V powerbank. Overall, excluding parts used for fixing everything and the chassis itself and some additional circuitry (relay, switches,...), the materials consisted in:
 
-2x L298n motor drivers
-4x DC brush motors
-1x Servo motor
-2x Chipkit UNO32
-1x 5V Powerbank
-1x HC-06 Bluetooth Module
-1x High Voltage Converter
-1x SIM808 GSM/GPS module
+**2x L298n motor drivers<br>
+4x DC brush motors<br>
+1x Servo motor<br>
+2x Chipkit UNO32<br>
+1x 5V Powerbank<br>
+1x HC-06 Bluetooth Module<br>
+1x High Voltage Converter<br>
+1x SIM808 GSM/GPS module**<br>
 
 ### Motors
 We used 4x DC brushed motors, so to control them we opted for a L298N controller. The controller came out very easy to use. 
 ![l298n](/images/l298n.jpg)
 
-1/14- + Motor Pins<br>
-2/13- - Motor Pins<br>
-3- We leaved this jumper as the power we were supplying was around +12V DC<br>
-4- + 12V DC<br>
-5- GND<br>
-6- + 5V Output<br>
-7/12 - This is the enable pin for each motor. By giving a PWM signal to it we can control the motors speed.<br>
-8/9 - This pins are used to control the direction of movement of the motor 1.<br>
-10/11 - This pins are used to controll the direction of movement of the motor 2.<br>
+1/14- **+ Motor Pins**<br>
+2/13- **- Motor Pins**<br>
+3- **We leaved this jumper as the power we were supplying was around +12V DC**<br>
+4- **+ 12V DC**<br>
+5- **GND**<br>
+6- **+ 5V Output**<br>
+7/12 - **This is the enable pin for each motor. By giving a PWM signal to it we can control the motors speed.**<br>
+8/9 - **This pins are used to control the direction of movement of the motor 1.**<br>
+10/11 - **This pins are used to controll the direction of movement of the motor 2.**<br>
 
 |         | IN1  | IN2  |
 |---------|------|------|
