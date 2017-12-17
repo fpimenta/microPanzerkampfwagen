@@ -1,0 +1,4 @@
+/*
+A PHP script to insert the data received via a HTTP
+POST request to the database
+*/
