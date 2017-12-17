@@ -32,10 +32,17 @@ We used 4x DC brushed motors, so to control them we opted for a L298N controller
 8/9 - This pins are used to control the direction of movement of the motor 1.<br>
 10/11 - This pins are used to controll the direction of movement of the motor 2.<br>
 
+|         | IN1  | IN2  |
+|---------|------|------|
+| BRAKE   | HIGH | HIGH |   
+| FRONT   | HIGH | LOW  |   
+| BACK    | LOW  | BACK |  
+| NEUTRAL | LOW  | LOW  |  
+
 The direction was given by the Android app and by turning off and on certain motors, we made the robot go the wanted direction
 
 ### Servo
-The Servo was used to controlled the tank gun direction. The input was used by a slider in the Android app.
+The Servo was used to controlled the tank gun direction. The input was used by a slider in the Android app which sended to the chipKit an integer between 0 and 180, which corresponded to the angle to turn the servo.
 ### Tank Gun
 
 ### Bluetooth
