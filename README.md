@@ -22,15 +22,15 @@ We powered the car with 3x 18650 batteries and the CHIPkits with a 5V powerbank.
 We used 4x DC brushed motors, so to control them we opted for a L298N controller. The controller came out very easy to use. 
 ![l298n](/images/l298n.jpg)
 
-1/14- **+ Motor Pins**<br>
-2/13- **- Motor Pins**<br>
-3- **We leaved this jumper as the power we were supplying was around +12V DC**<br>
-4- **+ 12V DC**<br>
-5- **GND**<br>
-6- **+ 5V Output**<br>
-7/12 - **This is the enable pin for each motor. By giving a PWM signal to it we can control the motors speed.**<br>
-8/9 - **This pins are used to control the direction of movement of the motor 1.**<br>
-10/11 - **This pins are used to controll the direction of movement of the motor 2.**<br>
+**1/14-** + Motor Pins<br>
+**2/13-**- Motor Pins<br>
+**3-** We leaved this jumper as the power we were supplying was around +12V DC<br>
+**4-** + 12V DC<br>
+**5-** GND<br>
+**6-** + 5V Output<br>
+**7/12-** This is the enable pin for each motor. By giving a PWM signal to it we can control the motors speed.<br>
+**8/9-** This pins are used to control the direction of movement of the motor 1.<br>
+**10/11-** This pins are used to controll the direction of movement of the motor 2.<br>
 
 |         | IN1  | IN2  |
 |---------|------|------|
