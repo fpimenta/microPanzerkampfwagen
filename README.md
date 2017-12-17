@@ -22,15 +22,15 @@ We powered the car with 3x 18650 batteries and the CHIPkits with a 5V powerbank.
 We used 4x DC brushed motors, so to control them we opted for a L298N controller. The controller came out very easy to use. 
 ![l298n](/images/l298n.jpg)
 
-1/14- + Motor Pins
-2/13- - Motor Pins
-3- We leaved this jumper as the power we were supplying was around +12V DC
-4- + 12V DC
-5- GND
-6- + 5V Output
-7/12 - This is the enable pin for each motor. By giving a PWM signal to it we can control the motors speed.
-8/9 - This pins are used to control the direction of movement of the motor 1.
-10/11 - This pins are used to controll the direction of movement of the motor 2.
+1/14- + Motor Pins<br>
+2/13- - Motor Pins<br>
+3- We leaved this jumper as the power we were supplying was around +12V DC<br>
+4- + 12V DC<br>
+5- GND<br>
+6- + 5V Output<br>
+7/12 - This is the enable pin for each motor. By giving a PWM signal to it we can control the motors speed.<br>
+8/9 - This pins are used to control the direction of movement of the motor 1.<br>
+10/11 - This pins are used to controll the direction of movement of the motor 2.<br>
 
 The direction was given by the Android app and by turning off and on certain motors, we made the robot go the wanted direction
 
@@ -48,3 +48,5 @@ The Servo was used to controlled the tank gun direction. The input was used by a
 
 
 ## The App
+The course was about microcontrollers, so we didn't want to spend much time writing the application, so we used the **MIT App Inventor** which lets you easily develop an Android app by dragging and dropping blocks of code, similar to **Scratch**.
+We made a simple user interface with some arrows like a typical console controller and a slider to control the angle of the tank gun. We also added two buttons to connect/disconnect with the **HC-06** bluetooth module. To keep things simple, the only thing the app sends the robot is a 1 byte number [0-255]. The numbers between 0-180 are seen by the robot as the angle to turn the servo and the following numbers are used to tell the robot where to go or what to do (181 turn left, 185 shoot, etc). This is not the most transparent approach but is the most easy and minimal, keeping the microcontroller code simple and small.
