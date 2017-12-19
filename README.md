@@ -1,6 +1,6 @@
 # microPanzerkampfwagen
 
-In the scope of the Computers discipline we ([Francisco Pimenta](https://github.com/fpimenta) and [João Morais] ) had to develop a final project to apply all the knowledge learned during the course. We developed a chipkit UNO32 based Panzer, connected trough bluetooth to an app we developed using MIT App Inventor. The robot also informs it's GPS location via GSM, by posting it to a server mounted on Heroku and sending an SMS when requested. 
+In the scope of the Computers discipline we ([Francisco Pimenta](https://github.com/fpimenta) and [João Morais](https://github.com/frndlies) ) had to develop a final project to apply all the knowledge learned during the course. We developed a chipkit UNO32 based Panzer, connected trough bluetooth to an app we developed using MIT App Inventor. The robot also informs it's GPS location via GSM, by posting it to a server mounted on Heroku and sending an SMS when requested. 
 
 ## The Robot
 We used a car kit we had laying around, similar to the one in the image
