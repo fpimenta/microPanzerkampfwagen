@@ -64,6 +64,7 @@ Using Heroku, we created a simple server using PHP and PostGreSQL to receive the
 ## Acknowledgments
 
 During this project we used the following libraries, which both are licensed under a [Creative Commons Attribution-ShareAlike 3.0 License](https://creativecommons.org/licenses/by-sa/3.0/) :
+
 [SOftware Serial](https://www.arduino.cc/en/Reference/SoftwareSerial)
 [Servo](https://www.arduino.cc/en/Reference/Servo)
 
