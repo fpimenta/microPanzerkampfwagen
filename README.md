@@ -60,3 +60,11 @@ We made a simple user interface with some arrows like a typical console controll
 
 ## The Server
 Using Heroku, we created a simple server using PHP and PostGreSQL to receive the data from the GPS and store it online. Basically, the server retrieves the data that is sent to it via a HTTP POST request and then stores it in a database, using a simples SQL query. This data can be then acessed in browser or in the app.
+
+## Acknowledgments
+
+During this project we used the following libraries, which both are licensed under a [Creative Commons Attribution-ShareAlike 3.0 License](https://creativecommons.org/licenses/by-sa/3.0/) :
+[SOftware Serial](https://www.arduino.cc/en/Reference/SoftwareSerial)
+[Servo](https://www.arduino.cc/en/Reference/Servo)
+
+This project is licensed under a Beerware license, so, if you find this usefull you are encouraged to pay us a beer or drink one for us. 
