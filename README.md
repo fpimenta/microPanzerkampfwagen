@@ -40,11 +40,13 @@ We used 4x DC brushed motors, so to control them we opted for a L298N controller
 | NEUTRAL | x    |  x   |   0  |
 
 The direction was given by the Android app and by turning off and on certain motors, we made the robot go the wanted direction
+Also, we defined 5 speed levels which could be changed within the app using a slider.
 
 ### Servo
-The Servo was used to controlled the tank gun direction. The input was used by a slider in the Android app which sended to the chipKit an integer between 0 and 180, which corresponded to the angle to turn the servo.
-### Tank Gun
+The Servo was used to control the tank gun direction. The input was used by a slider in the Android app which sended to the chipKit an integer between 0 and 180, which corresponded directly to the angle to turn the servo.
 
+### Tank Gun
+Of course, our Panzer wouldn't be complete if it wasn't capable of firing ammo. So we designed a cannon inspired in this [Lighter Cannon](https://www.youtube.com/watch?v=QGj8xMDRSQ0). The ignition was given by a [high voltage generator](https://pt.aliexpress.com/item/3-6V-High-Pressure-Generator-Module-Igniter-1-5A-Output-Voltage-20KV-20000KV-Boost-Step-up/32803789310.html) like this one.
 ### Bluetooth
 
 ## The GPS and GPS
