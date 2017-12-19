@@ -72,11 +72,11 @@ void loop() {
 
 
 ## The App
-The course was about microcontrollers, so we didn't want to spend much time writing the application, so we used the **MIT App Inventor** which lets you easily develop an Android app by dragging and dropping blocks of code, similar to **Scratch**.
+The course was about microcontrollers, we didn't want to spend much time writing the application, so we used the **MIT App Inventor** which lets you easily develop an Android app by dragging and dropping blocks of code, similar to **Scratch**.
 We made a simple user interface with some arrows like a typical console controller and a slider to control the angle of the tank gun. We also added two buttons to connect/disconnect with the **HC-06** bluetooth module. To keep things simple, the only thing the app sends the robot is a 1 byte number [0-255]. The numbers between 0-180 are seen by the robot as the angle to turn the servo and the following numbers are used to tell the robot where to go or what to do (181 turn left, 185 shoot, etc). This is not the most transparent approach but is the most easy and minimal, keeping the microcontroller code simple and small.
 
 ## The Server
-Using Heroku, we created a simple server using PHP and PostGreSQL to receive the data from the GPS and store it online. Basically, the server retrieves the data that is sent to it via a HTTP POST request and then stores it in a database, using a simples SQL query. This data can be then acessed in browser or in the app.
+Using Heroku, we created a simple server using PHP and PostGreSQL to receive the data from the GPS and store it online. Basically, the server retrieves the data that is sent to it via a HTTP GET request and then stores it in a database, using a simples SQL query. This data can be then acessed in browser or in the app.
 
 ## Acknowledgments
 
@@ -84,5 +84,7 @@ During this project we used the following libraries, which both are licensed und
 
 [Software Serial](https://www.arduino.cc/en/Reference/SoftwareSerial)<br>
 [Servo](https://www.arduino.cc/en/Reference/Servo)<br>
+
+We also used the [MIT App Inventor](http://appinventor.mit.edu/) which is an incredible project and you should consider donating to it.
 
 This project is licensed under a Beerware license so, if you find this usefull you are encouraged to pay us a beer or drink one for us. 
