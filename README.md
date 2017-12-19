@@ -32,12 +32,12 @@ We used 4x DC brushed motors, so to control them we opted for a L298N controller
 **8/9-** This pins are used to control the direction of movement of the motor 1.<br>
 **10/11-** This pins are used to controll the direction of movement of the motor 2.<br>
 
-|         | IN1  | IN2  |
-|---------|------|------|
-| BRAKE   | HIGH | HIGH |   
-| FRONT   | HIGH | LOW  |   
-| BACK    | LOW  | BACK |  
-| NEUTRAL | LOW  | LOW  |  
+|         | IN1  | IN2  |  EN  |
+|---------|------|------|------|
+| BRAKE   | HIGH | HIGH | 1-255|
+| FRONT   | HIGH | LOW  | 1-255|
+| BACK    | LOW  | BACK | 1-255|
+| NEUTRAL | x    |  x   |   0  |
 
 The direction was given by the Android app and by turning off and on certain motors, we made the robot go the wanted direction
 
