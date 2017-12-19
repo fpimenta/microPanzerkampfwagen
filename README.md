@@ -46,9 +46,24 @@ Also, we defined 5 speed levels which could be changed within the app using a sl
 The Servo was used to control the tank gun direction. The input was used by a slider in the Android app which sended to the chipKit an integer between 0 and 180, which corresponded directly to the angle to turn the servo.
 
 ### Tank Gun
-Of course, our Panzer wouldn't be complete if it wasn't capable of firing ammo. So we designed a cannon inspired in this [Lighter Cannon](https://www.youtube.com/watch?v=QGj8xMDRSQ0). The ignition was given by a [high voltage generator](https://pt.aliexpress.com/item/3-6V-High-Pressure-Generator-Module-Igniter-1-5A-Output-Voltage-20KV-20000KV-Boost-Step-up/32803789310.html) like this one.
+Of course, our Panzer wouldn't be complete if it wasn't capable of firing ammo. So we designed a cannon inspired in this [Lighter Cannon](https://www.youtube.com/watch?v=QGj8xMDRSQ0). The ignition was given by a [high voltage generator](https://pt.aliexpress.com/item/3-6V-High-Pressure-Generator-Module-Igniter-1-5A-Output-Voltage-20KV-20000KV-Boost-Step-up/32803789310.html) like this one controlled by a digital pin via a relay. The power supply for the generator was the same as for the car. The high peak current drain from the generator could make the tank stop, but this was not a problem as we were designing a tank and most 18650 batteries can deliver a high currents.
 ### Bluetooth
+We decided to control the tank via an Android app, using bluetooth. This way, we added a bluetooth module (HC-06) to communicate with our phone. The communication between the chipKIT and the module was done using Serial communication, with a baud rate of 9600. The code used was something like
+```c++
+SoftwareSerial BTSerial(bt_rx, bt_tx); // RX 12, TX 13
 
+int r;
+
+void setup() {
+    BTSerial.begin(9600);
+}
+void loop() {
+
+   if (BTSerial.available()) {
+    r = BTSerial.read();
+   } 
+}
+```
 ## The GPS and GPS
 
 ### GPS
