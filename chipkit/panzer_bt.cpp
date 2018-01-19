@@ -122,9 +122,6 @@ void set_direction(String dir){
       digitalWrite(dc4_2, LOW);
     }
     if( dir == "left"){
-      
-    }
-    if( dir == "stop"){
       digitalWrite(dc1_1, LOW);
       digitalWrite(dc1_1, LOW);
       digitalWrite(dc2_1, LOW);
@@ -132,6 +129,16 @@ void set_direction(String dir){
       digitalWrite(dc3_1, HIGH);
       digitalWrite(dc3_2, LOW);
       digitalWrite(dc4_1, HIGH);
+      digitalWrite(dc4_2, LOW);
+    }
+    if( dir == "stop"){
+      digitalWrite(dc1_1, LOW);
+      digitalWrite(dc1_1, LOW);
+      digitalWrite(dc2_1, LOW);
+      digitalWrite(dc2_2, LOW);
+      digitalWrite(dc3_1, LOW);
+      digitalWrite(dc3_2, LOW);
+      digitalWrite(dc4_1, LOW);
       digitalWrite(dc4_2, LOW);
     }
 }
