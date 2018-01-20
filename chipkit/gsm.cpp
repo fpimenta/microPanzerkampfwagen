@@ -1,5 +1,6 @@
 #define SIM900 Serial1
 
+char r;
 int enviarAT(String ATcommand, char* resp_correcta, unsigned int tiempo)
 {
 
@@ -48,17 +49,19 @@ void setup() {
   Serial.println("Conectado a la red.");
   enviarAT("AT+CLIP=1\r", "OK", 1000); // Activamos la identificacion de llamadas
   enviarAT("AT+CMGF=1\r", "OK", 1000); //Configura el modo texto para enviar o recibir mensajes
+  enviarAT("AT+CGPSPWR=1\r", "OK", 1000);
 }
 
 void loop() {
   
   //Envíamos y recibimos datos
- if (Serial.available() > 0)
- if(Serial.read() == 'c'){
+ if (Serial.available() > 0){
+  r = Serial.read();
+ if(r == 'c'){
   Serial.println("chamada");
   enviarAT("ATD925707069;", "OK", 1000);
  }
- if(Serial.read() == 's'){
+ if(r == 's'){
   char sms[20] = "es coco\x1A \r\n";
   char aux_str[50];
   Serial.println("Enviando SMS...");
@@ -71,5 +74,15 @@ void loop() {
     }
     Serial.println("SMS enviado");
  }
-
+ if(r == 'g'){
+    Serial.println("Finding GPS");
+    while ( enviarAT("AT+CGPSSTATUS?", "+CGPSSTATUS: Location 3D Fix", 1000) == 0 )
+  {
+    delay(2000);
+  }
+  SIM900.println("AT+CGPSINF=0\r");
+   if (SIM900.available() > 0)
+    Serial.write(Serial1.read());
+ }
+ }
 }
