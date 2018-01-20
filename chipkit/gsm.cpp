@@ -1,12 +1,12 @@
 #define SIM900 Serial1
 
-
+char respuesta[100];
 int enviarAT(String ATcommand, char* resp_correcta, unsigned int tiempo)
 {
  // if(strlen(resp_correcta) > 1 ){
   int x = 0;
   bool correcto = 0;
-  char respuesta[100];
+  
   unsigned long anterior;
 
   memset(respuesta, '\0', 100); // Inicializa el string
@@ -109,14 +109,17 @@ void loop() {
     Serial.println("SMS enviado");
     
  }
- /*if(r == 'g'){
+ if(r == 'g'){
     Serial.println("Finding GPS");
     while ( enviarAT("AT+CGPSSTATUS?", "+CGPSSTATUS: Location 3D Fix", 1000) == 0 )
   {
     delay(5000);
   }
-  enviarAT("AT+CGPSINF=0\r", "", 300);
-
- }*/
+  int x = 0;
+  char gps[80];
+  while ( SIM900.available() != 0) SIM900.read();
+  enviarAT("AT+CGPSINF=0\r", "OK", 300);
+  Serial.println(respuesta);
+ }
  
 }
