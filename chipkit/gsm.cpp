@@ -1,5 +1,9 @@
+#include <TinyGPS++.h>
+
+
 #define SIM900 Serial1
- 
+
+ TinyGPSPlus gps;
 char respuesta[120];
  
 char latitude[15];
@@ -53,27 +57,15 @@ void loop() {
   {
     delay(5000);
   }
-  int x = 0;
-  char gps[80];
+  
   while ( SIM900.available() != 0) SIM900.read();
   enviarAT("AT+CGPSOUT\r", "OK",1000);
-  //enviarAT("AT+CGPSINF=0\r", "OK", 1000);
- /* Serial.println(respuesta);
-    strtok(respuesta, ",");
-    strcpy(longitude,strtok(NULL, ",")); // Gets longitude
-    strcpy(latitude,strtok(NULL, ",")); // Gets latitude
-    strcpy(altitude,strtok(NULL, ".")); // Gets altitude
-    strtok(NULL, ",");    
-    strtok(NULL, ",");
-    strtok(NULL, ",");
-    strtok(NULL, ",");
-    strcpy(speedOTG,strtok(NULL, ",")); // Gets speed over ground. Unit is knots.
-    
-    Serial.println(longitude);
-    Serial.println(latitude);
-    Serial.println(altitude);
-    Serial.println(speedOTG);*/
-    
+ 
+ 
+  Serial.println(gps.location.lat(),6);
+  Serial.println(gps.location.lng(), 6);
+  Serial.println(gps.altitude.meters());
+  Serial.println(gps.speed.kmph());
  }
  
 }
@@ -99,6 +91,7 @@ int enviarAT(String ATcommand, char* resp_correcta, unsigned int tiempo)
     if (SIM900.available() != 0)
     {
         respuesta[x] = SIM900.read();
+        gps.encode(respuesta[x]);
         x++;
       // Comprueba si la respuesta es correcta
       if (strstr(respuesta, resp_correcta) != NULL)
