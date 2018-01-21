@@ -12,16 +12,16 @@ void setup() {
    Serial1.begin(9600);
  Serial.begin(9600);
  delay(100);
-  enviarAT("AT", "OK", 1000); // Cuelga la llamada
-  enviarAT("AT+CPIN?", "OK", 1000);
-  while ( enviarAT("AT+CREG?", "+CREG: 0,1", 1000) == 0 )
+  enviarAT("AT", "OK", 1000,0); // Cuelga la llamada
+  enviarAT("AT+CPIN?", "OK", 1000,0);
+  while ( enviarAT("AT+CREG?", "+CREG: 0,1", 1000,0) == 0 )
   {
     delay(100);
   }
   Serial.println("Conectado a la red.");
-  enviarAT("AT+CLIP=1\r", "OK", 1000); // Activamos la identificacion de llamadas
-  enviarAT("AT+CMGF=1\r", "OK", 1000); //Configura el modo texto para enviar o recibir mensajes
-  enviarAT("AT+CGPSPWR=1\r", "OK", 1000);
+  enviarAT("AT+CLIP=1\r", "OK", 1000,0); // Activamos la identificacion de llamadas
+  enviarAT("AT+CMGF=1\r", "OK", 1000,0); //Configura el modo texto para enviar o recibir mensajes
+  enviarAT("AT+CGPSPWR=1\r", "OK", 1000,0);
 }
  
 void loop() {
@@ -32,32 +32,32 @@ void loop() {
  }
  if(r == 'c'){
   Serial.println("chamada");
-  enviarAT("ATD925707069;", "OK", 1000);
+  enviarAT("ATD925707069;", "OK", 1000,0);
  }
  if(r == 's'){
   char sms[60] ; //= "es coco\x1A \r\n";
   sprintf(sms, "Lat: %f\nLon: %f\nAlt:%f\x1A \r\n", gps.location.lat(),gps.location.lng(),gps.altitude.meters());
   char aux_str[120];
   Serial.println("Enviando SMS...");
-    enviarAT("AT+CMGF=1\r", "OK", 1000); //Comando AT para mandar un SMS
+    enviarAT("AT+CMGF=1\r", "OK", 1000,0); //Comando AT para mandar un SMS
     sprintf(aux_str, "AT+CMGS=\"925707069\"", strlen(sms)); //Numero al que vamos a enviar el mensaje
     //Texto del mensaje
-    if (enviarAT(aux_str, ">", 10000) == 1)
+    if (enviarAT(aux_str, ">", 10000,0) == 1)
     {
-      enviarAT(sms, "OK", 10000);
+      enviarAT(sms, "OK", 10000,0);
     }
     Serial.println("SMS enviado");
    
  }
  if(r == 'g'){
     Serial.println("Finding GPS");
-    while ( enviarAT("AT+CGPSSTATUS?", "+CGPSSTATUS: Location 3D Fix", 1000) == 0 )
+    while ( enviarAT("AT+CGPSSTATUS?", "+CGPSSTATUS: Location 3D Fix", 1000,0) == 0 )
   {
     delay(5000);
   }
   
   //while ( SIM900.available() != 0) SIM900.read();
-  enviarAT("AT+CGPSOUT\r", "OK",1000);
+  enviarAT("AT+CGPSOUT\r", "OK",1000,1);
   //if(SIM900.available() != 0) gps.encode(SIM900.read());
  
   Serial.println(gps.location.lat(),6);
@@ -69,7 +69,7 @@ void loop() {
 }
  
  
-int enviarAT(String ATcommand, char* resp_correcta, unsigned int tiempo)
+int enviarAT(String ATcommand, char* resp_correcta, unsigned int tiempo, int loc)
 {
  
   int x = 0;
@@ -89,6 +89,7 @@ int enviarAT(String ATcommand, char* resp_correcta, unsigned int tiempo)
     if (SIM900.available() != 0)
     {
        respuesta[x] = SIM900.read();
+       if(loc)
        gps.encode(respuesta[x]);
         x++;
       // Comprueba si la respuesta es correcta
