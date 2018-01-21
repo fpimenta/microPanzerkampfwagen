@@ -28,6 +28,7 @@ SoftwareSerial BTSerial(bt_rx, bt_tx); // RX 12, TX 13
 
 int r;
 
+
 void setup() {
     pinMode(en1, OUTPUT);
     pinMode(en2, OUTPUT);
@@ -87,13 +88,11 @@ void loop() {
     }         
   }
         
-        
-
-}
+}        
 void set_direction(String dir){
     if( dir == "front"){
       digitalWrite(dc1_1, HIGH);
-      digitalWrite(dc1_1, LOW);
+      digitalWrite(dc1_2, LOW);
       digitalWrite(dc2_1, HIGH);
       digitalWrite(dc2_2, LOW);
       digitalWrite(dc3_1, HIGH);
@@ -103,7 +102,7 @@ void set_direction(String dir){
     }
     if( dir == "back"){
       digitalWrite(dc1_1, LOW);
-      digitalWrite(dc1_1, HIGH);
+      digitalWrite(dc1_2, HIGH);
       digitalWrite(dc2_1, LOW);
       digitalWrite(dc2_2, HIGH);
       digitalWrite(dc3_1, LOW);
@@ -113,7 +112,7 @@ void set_direction(String dir){
     }
     if( dir == "right"){
       digitalWrite(dc1_1, HIGH);
-      digitalWrite(dc1_1, LOW);
+      digitalWrite(dc1_2, LOW);
       digitalWrite(dc2_1, HIGH);
       digitalWrite(dc2_2, LOW);
       digitalWrite(dc3_1, LOW);
@@ -123,7 +122,7 @@ void set_direction(String dir){
     }
     if( dir == "left"){
       digitalWrite(dc1_1, LOW);
-      digitalWrite(dc1_1, LOW);
+      digitalWrite(dc1_2, LOW);
       digitalWrite(dc2_1, LOW);
       digitalWrite(dc2_2, LOW);
       digitalWrite(dc3_1, HIGH);
@@ -133,7 +132,7 @@ void set_direction(String dir){
     }
     if( dir == "stop"){
       digitalWrite(dc1_1, LOW);
-      digitalWrite(dc1_1, LOW);
+      digitalWrite(dc1_2, LOW);
       digitalWrite(dc2_1, LOW);
       digitalWrite(dc2_2, LOW);
       digitalWrite(dc3_1, LOW);
