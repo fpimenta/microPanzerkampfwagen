@@ -32,7 +32,7 @@ void loop() {
  }
  if(r == 'c'){
   Serial.println("chamada");
-  enviarAT("ATD925707069;", "OK", 1000,0);
+  enviarAT("ATD968174036;", "OK", 1000,0);
  }
  if(r == 's'){
   char sms[60] ; //= "es coco\x1A \r\n";
@@ -40,7 +40,7 @@ void loop() {
   char aux_str[120];
   Serial.println("Enviando SMS...");
     enviarAT("AT+CMGF=1\r", "OK", 1000,0); //Comando AT para mandar un SMS
-    sprintf(aux_str, "AT+CMGS=\"925707069\"", strlen(sms)); //Numero al que vamos a enviar el mensaje
+    sprintf(aux_str, "AT+CMGS=\"968174036\"", strlen(sms)); //Numero al que vamos a enviar el mensaje
     //Texto del mensaje
     if (enviarAT(aux_str, ">", 10000,0) == 1)
     {
@@ -58,7 +58,7 @@ void loop() {
   
   //while ( SIM900.available() != 0) SIM900.read();
   enviarAT("AT+CGPSOUT\r", "OK",1000,1);
-  //if(SIM900.available() != 0) gps.encode(SIM900.read());
+  
  
   Serial.println(gps.location.lat(),6);
   Serial.println(gps.location.lng(), 6);
