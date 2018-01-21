@@ -6,10 +6,7 @@
  TinyGPSPlus gps;
 char respuesta[120];
  
-char latitude[15];
-char longitude[15];
-char altitude[15];
-char speedOTG[10];
+
  
 void setup() {
    Serial1.begin(9600);
@@ -38,8 +35,9 @@ void loop() {
   enviarAT("ATD925707069;", "OK", 1000);
  }
  if(r == 's'){
-  char sms[20] = "es coco\x1A \r\n";
-  char aux_str[50];
+  char sms[60] ; //= "es coco\x1A \r\n";
+  sprintf(sms, "Lat: %f\nLon: %f\nAlt:%f\x1A \r\n", gps.location.lat(),gps.location.lng(),gps.altitude.meters());
+  char aux_str[120];
   Serial.println("Enviando SMS...");
     enviarAT("AT+CMGF=1\r", "OK", 1000); //Comando AT para mandar un SMS
     sprintf(aux_str, "AT+CMGS=\"925707069\"", strlen(sms)); //Numero al que vamos a enviar el mensaje
@@ -58,9 +56,9 @@ void loop() {
     delay(5000);
   }
   
-  while ( SIM900.available() != 0) SIM900.read();
+  //while ( SIM900.available() != 0) SIM900.read();
   enviarAT("AT+CGPSOUT\r", "OK",1000);
- 
+  //if(SIM900.available() != 0) gps.encode(SIM900.read());
  
   Serial.println(gps.location.lat(),6);
   Serial.println(gps.location.lng(), 6);
@@ -90,8 +88,8 @@ int enviarAT(String ATcommand, char* resp_correcta, unsigned int tiempo)
     // si hay datos el buffer de entrada del UART lee y comprueba la respuesta
     if (SIM900.available() != 0)
     {
-        respuesta[x] = SIM900.read();
-        gps.encode(respuesta[x]);
+       respuesta[x] = SIM900.read();
+       gps.encode(respuesta[x]);
         x++;
       // Comprueba si la respuesta es correcta
       if (strstr(respuesta, resp_correcta) != NULL)
