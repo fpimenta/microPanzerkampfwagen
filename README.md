@@ -1,6 +1,6 @@
 # microPanzerkampfwagen
 
-In the scope of the Computers discipline I had to develop a final project to apply all the knowledge learned during the course. I developed a chipkit UNO32 based Panzer, connected trough bluetooth to an app developed using MIT App Inventor. The robot also informs it's GPS location via GSM, sending an SMS when requested. 
+In the scope of the Computers discipline I had to develop a final project to apply all the knowledge learned during the course. I developed a chipkit UNO32 based Panzer, connected trough bluetooth to an app developed using MIT App Inventor. The robot also informs it's GPS location via GSM, sending an SMS when requested. There's a video with a small demonstration of that [here](/image/VID_20180122_124036(0)(0).mp4).
 
 ## The Robot
 I used a car kit I had laying around, similar to the one in the image
