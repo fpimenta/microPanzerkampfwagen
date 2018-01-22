@@ -7,7 +7,7 @@ I used a car kit I had laying around, similar to the one in the image
 
 ![car kit](/images/robot_car_kit.jpeg)
 
-The car and ChipKit were powered with 3x 18650 batteries. Overall, excluding parts used for fixing everything and the chassis itself and some additional circuitry (relay, switches,...), the materials consisted in:
+The car and ChipKit were powered with 3x 18650 batteries. Overall, excluding parts used for fixing everything, the chassis itself and some additional circuitry (leds, switches,...), the materials consisted in:
 
 **2x L298n motor drivers<br>
 4x DC brush motors<br>
@@ -52,22 +52,8 @@ Of course, the Panzer wouldn't be complete if it wasn't capable of firing ammo. 
 
 ### Bluetooth
 
-To control the tank via an Android app, I used bluetooth, making use of a bluetooth module (HC-06) to communicate with our phone. The communication between the chipKIT and the HC-06 was done using Serial communication, with a baud rate of 9600. The code used was something like
-```c++
-SoftwareSerial BTSerial(bt_rx, bt_tx); // RX 12, TX 13
+To control the tank via an Android app, I used bluetooth, making use of a bluetooth module (HC-06) to communicate with our phone. The communication between the chipKIT and the HC-06 was done using Serial communication, with a baud rate of 9600. 
 
-int r;
-
-void setup() {
-    BTSerial.begin(9600);
-}
-void loop() {
-
-   if (BTSerial.available()) {
-    r = BTSerial.read();
-   } 
-}
-```
 ## The GPS and GSM
 
 Using a SIM808 module, I was able to both make calls and retrieve the location using GPS and then sending the location via SMS to a pre-defined number.
