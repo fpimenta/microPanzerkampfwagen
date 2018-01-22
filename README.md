@@ -1,6 +1,6 @@
 # microPanzerkampfwagen
 
-In the scope of the Computers discipline we ([Francisco Pimenta](https://github.com/fpimenta) and [João Morais](https://github.com/frndlies)) had to develop a final project to apply all the knowledge learned during the course. We developed a chipkit UNO32 based Panzer, connected trough bluetooth to an app we developed using MIT App Inventor. The robot also informs it's GPS location via GSM, by posting it to a server mounted on Heroku and sending an SMS when requested. 
+In the scope of the Computers discipline I had to develop a final project to apply all the knowledge learned during the course. I developed a chipkit UNO32 based Panzer, connected trough bluetooth to an app developed using MIT App Inventor. The robot also informs it's GPS location via GSM, sending an SMS when requested. 
 
 ## The Robot
 We used a car kit we had laying around, similar to the one in the image
@@ -19,7 +19,7 @@ We powered the car with 3x 18650 batteries and the CHIPkits with a 5V powerbank.
 1x SIM808 GSM/GPS module**<br>
 
 ### Motors
-We used 4x DC brushed motors, so to control them we opted for a L298N controller. The controller came out very easy to use. 
+I used 4x DC brushed motors, so to control them I opted for two L298N controllers. The controllers came out very easy to use. 
 ![l298n](/images/l298n.jpg)
 
 **1/14-** + Motor Pins<br>
@@ -30,7 +30,7 @@ We used 4x DC brushed motors, so to control them we opted for a L298N controller
 **6-** + 5V Output<br>
 **7/12-** This is the enable pin for each motor. By giving a PWM signal to it we can control the motors speed.<br>
 **8/9-** This pins are used to control the direction of movement of the motor 1.<br>
-**10/11-** This pins are used to controll the direction of movement of the motor 2.<br>
+**10/11-** This pins are used to control the direction of movement of the motor 2.<br>
 
 |         | IN1  | IN2  |  EN  |
 |---------|------|------|------|
@@ -39,16 +39,20 @@ We used 4x DC brushed motors, so to control them we opted for a L298N controller
 | BACK    | LOW  | BACK | 1-255|
 | NEUTRAL | x    |  x   |   0  |
 
-The direction was given by the Android app and by turning off and on certain motors, we made the robot go the wanted direction
-Also, we defined 5 speed levels which could be changed within the app using a slider.
+The direction was given by the Android app and by turning off and on certain motors, the robot goes the wanted direction
+Also, there are 5 speed levels which could be changed within the app.
 
 ### Servo
-The Servo was used to control the tank gun direction. The input was used by a slider in the Android app which sended to the chipKit an integer between 0 and 180, which corresponded directly to the angle to turn the servo.
-The position was controlled by a PWM signal with 50Hz and a particular duty cicle. To generate it we used the [Servo](https://www.arduino.cc/en/Reference/Servo) library.
+The Servo was used to control the tank gun direction. The input was given by a slider in the Android app which sends the chipKit an integer between 0 and 180, which corresponded directly to the angle to turn the servo.
+The position was controlled by a PWM signal with 50Hz and a particular duty cicle. To generate it I used the [Servo](https://www.arduino.cc/en/Reference/Servo) library.
+
 ### Tank Gun
-Of course, our Panzer wouldn't be complete if it wasn't capable of firing ammo. So we designed a cannon inspired in this [Lighter Cannon](https://www.youtube.com/watch?v=QGj8xMDRSQ0). The ignition was given by a [high voltage generator](https://pt.aliexpress.com/item/3-6V-High-Pressure-Generator-Module-Igniter-1-5A-Output-Voltage-20KV-20000KV-Boost-Step-up/32803789310.html) like this one controlled by a digital pin via a relay. The power supply for the generator was the same as for the car. The high peak current drain from the generator could make the tank stop, but this was not a problem as we were designing a tank and most 18650 batteries can deliver high peak currents (our batteries were salvaged from old computer batteries so we were not sure of cell's specs, but again, this was not a big deal for this project).
+
+Of course, the Panzer wouldn't be complete if it wasn't capable of firing ammo. While not currently able to, I plan to add a cannon similar to [this](https://www.youtube.com/watch?v=QGj8xMDRSQ0) one. The ignition will be given by a [high voltage generator](https://pt.aliexpress.com/item/3-6V-High-Pressure-Generator-Module-Igniter-1-5A-Output-Voltage-20KV-20000KV-Boost-Step-up/32803789310.html) like this one controlled by a digital pin via a relay.
+
 ### Bluetooth
-We decided to control the tank via an Android app, using bluetooth. This way, we added a bluetooth module (HC-06) to communicate with our phone. The communication between the chipKIT and the module was done using Serial communication, with a baud rate of 9600. The code used was something like
+
+To control the tank via an Android app, I used bluetooth, making use of a bluetooth module (HC-06) to communicate with our phone. The communication between the chipKIT and the HC-06 was done using Serial communication, with a baud rate of 9600. The code used was something like
 ```c++
 SoftwareSerial BTSerial(bt_rx, bt_tx); // RX 12, TX 13
 
@@ -66,25 +70,30 @@ void loop() {
 ```
 ## The GPS and GPS
 
+Using a SIM808 module, I was able to both make calls and retrieve the location using GPS and then sending the location via SMS to a pre-defined number.
+The interface with the module could be make by sending AT commands via Serial. As sending AT commands was the central part for the programm, I developed a function that sent an AT command and checked if the returned response was the one expected.
+![sim808](/images/sim808.jpg)
 ### GPS
+The SIM808 module supports GPS and you can interface with it via AT commands listed in the documentation. After the module finds its position (which usually takes some long minutes), you can query it for the location, which, in my case, was retrieved in the popular NMEA format. This data was passed to the [TinyGPS library](http://arduiniana.org/libraries/tinygpsplus/) for parsing, after that it was quite trivial to get the required data, latitude, longitude, speed and such.
 
 ### GSM
 
 
 ## The App
-The course was about microcontrollers, we didn't want to spend much time writing the application, so we used the **MIT App Inventor** which lets you easily develop an Android app by dragging and dropping blocks of code, similar to **Scratch**.
-We made a simple user interface with some arrows like a typical console controller and a slider to control the angle of the tank gun. We also added two buttons to connect/disconnect with the **HC-06** bluetooth module. To keep things simple, the only thing the app sends the robot is a 1 byte number [0-255]. The numbers between 0-180 are seen by the robot as the angle to turn the servo and the following numbers are used to tell the robot where to go or what to do (181 turn left, 185 shoot, etc). This is not the most transparent approach but is the most easy and minimal, keeping the microcontroller code simple and small.
+The course was about microcontrollers, there was no point in spending much time writing the application, so I used the **MIT App Inventor** which lets you easily develop an Android app by dragging and dropping blocks of code, similar to **Scratch**.
+I made a simple user interface with some arrows like a typical console controller and a slider to control the angle of the tank gun. Two buttons were added to connect/disconnect with the **HC-06** bluetooth module. To keep things simple, the only thing the app sends the robot is a 1 byte number [0-255]. The numbers between 0-180 are seen by the robot as the angle to turn the servo and the following numbers are used to tell the robot where to go or what to do (181 turn left, 185 shoot, etc). This is not the most transparent approach but is the most easy and minimal, keeping the microcontroller code simple and small.
 If you want to start developing bluetooth based Android apps, you can check [this link](http://appinventor.pevest.com/?p=520).
-## The Server
-Using Heroku, we created a simple server using PHP and PostGreSQL to receive the data from the GPS and store it online. Basically, the server retrieves the data that is sent to it via a HTTP GET request and then stores it in a database, using a simples SQL query. This data can be then acessed in browser or in the app.
+
 
 ## Acknowledgments
 
-During this project we used the following libraries, which both are licensed under a [Creative Commons Attribution-ShareAlike 3.0 License](https://creativecommons.org/licenses/by-sa/3.0/) :
+During this project the following libraries were used, which both are licensed under a [Creative Commons Attribution-ShareAlike 3.0 License](https://creativecommons.org/licenses/by-sa/3.0/) :
 
 [Software Serial](https://www.arduino.cc/en/Reference/SoftwareSerial)<br>
 [Servo](https://www.arduino.cc/en/Reference/Servo)<br>
 
-We also used the [MIT App Inventor](http://appinventor.mit.edu/) which is an incredible project and you should consider donating to it.
+[TinyGPS](https://github.com/mikalhart/TinyGPS) was also used to parse the GPS data which was encoded in the NMEA format.<br>
 
-This project is licensed under a Beerware license so, if you find this usefull you are encouraged to pay us a beer or drink one for us. 
+I also used the [MIT App Inventor](http://appinventor.mit.edu/) which is an incredible project and you should consider donating to it.<br>
+
+This project is licensed under a [Beerware](https://en.wikipedia.org/wiki/Beerware) license. You are free to use the code if you find it suitable but give credit to those who wrote it.
