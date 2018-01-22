@@ -53,15 +53,14 @@ void loop() {
  }
  if(r == 'g' || digitalRead(31) == HIGH){ // Loops until it finds gps signal, after that it just updates the data
    Serial.println("Finding GPS");
-    digitalWrite(2, HIGH);
-    while ( sendAT("AT+CGPSSTATUS?", "+CGPSSTATUS: Location 3D Fix", 1000,0) == 0 ) // It usually takes a lot to find signal
-    {
-    delay(5000);
-    }
-    sendAT("AT+CGPSOUT\r", "OK",1000,1); // Asks for position data in NMEA format
+   digitalWrite(2, HIGH);
   
- 
-    Serial.println(gps.location.lat(),6);
+   while ( sendAT("AT+CGPSSTATUS?", "+CGPSSTATUS: Location 3D Fix", 1000,0) == 0 ) // It usually takes a lot to find signal
+    delay(5000);
+    
+   sendAT("AT+CGPSOUT\r", "OK",1000,1); // Asks for position data in NMEA format
+
+    Serial.println(gps.location.lat(),6); // Prints some data for debugging
     Serial.println(gps.location.lng(), 6);
     Serial.println(gps.altitude.meters());
     Serial.println(gps.speed.kmph());
@@ -70,35 +69,42 @@ void loop() {
  }
  
 }
-  
-int sendAT(String ATcommand, char* return_code, unsigned int time, int loc)
+
+/*
+The main part of the program was sending AT commands and listen to the responses, so I created a function to do just that.
+The functions expects a String with the required AT command (with a \r at the end if that's needed for that particular command),
+a vector of chars that holds the correct return code, an unsigned int that holds the maximum time the command is suposed to take
+executing and a boolean to make sure only the command that returns position data is then decoded by the TinyGPS library
+*/
+
+int sendAT(String ATcommand, char* return_code, unsigned int time, bool loc)
 {
  
   int x = 0;
   bool b = 0;
- 
   unsigned long old;
  
-  memset(answer, '\0', 100); 
-  delay(100);
-  while ( Serial1.available() > 0) Serial1.read(); 
-  Serial1.println(ATcommand); 
+  answer[119] = '\0'; // Terminate string
+  
+  while ( Serial1.available() > 0) Serial1.read(); // Empty the data buffer
+  Serial1.println(ATcommand); // Send AT command. Adds the required \n at the end.
   x = 0;
+ 
   old = millis();
   
   do {
     
     if (Serial1.available() != 0)
     {
-       answer[x] = Serial1.read();
-       if(loc)
-       gps.encode(answer[x]);
-       x++;
+      answer[x] = Serial1.read();
+       
+      if(loc)
+      gps.encode(answer[x]);
+       
+      x++;
       
       if (strstr(answer, return_code) != NULL)
-      {
         b = 1;
-      }
     }
   }
  
