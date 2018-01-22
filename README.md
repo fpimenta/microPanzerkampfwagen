@@ -69,6 +69,9 @@ The SIM808 module supports GPS and you can interface with it via AT commands lis
 The module also supports functions based on the GSM network such as calls, sending and receiving messages or making HTTP or FTP requests. In this project, I added support for calls and SMS to send the location data. On the setup function, I made the device wait for network connection, after that, making calls was just sending the AT command **ATDXXXXXXXXX;"** (replacing XXX with the number you want to call), the module handled the microphone and speakers integration.
 Sending the SMS required setting the number and the message to send.
 
+The circuit used was something like 
+![sim808_chem](/images/sim808.png)
+
 ## The App
 The course was about microcontrollers, there was no point in spending much time writing the application, so I used the **MIT App Inventor** which lets you easily develop an Android app by dragging and dropping blocks of code, similar to **Scratch**.
 I made a simple user interface with some arrows like a typical console controller and a slider to control the angle of the tank gun. Two buttons were added to connect/disconnect with the **HC-06** bluetooth module. To keep things simple, the only thing the app sends the robot is a 1 byte number [0-255]. The numbers between 0-180 are seen by the robot as the angle to turn the servo and the following numbers are used to tell the robot where to go or what to do (181 turn left, 185 shoot, etc). This is not the most transparent approach but is the most easy and minimal, keeping the microcontroller code simple and small.
