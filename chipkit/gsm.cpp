@@ -76,29 +76,29 @@ int sendAT(String ATcommand, char* return_code, unsigned int time, int loc)
  
   unsigned long old;
  
-  memset(answer, '\0', 100); // Inicializa el string
+  memset(answer, '\0', 100); 
   delay(100);
-  while ( Serial1.available() > 0) Serial1.read(); // Limpia el buffer de entrada
-  Serial1.println(ATcommand); // Envia el comando AT
+  while ( Serial1.available() > 0) Serial1.read(); 
+  Serial1.println(ATcommand); 
   x = 0;
   old = millis();
-  // Espera una respuesta
+  
   do {
-    // si hay datos el buffer de entrada del UART lee y comprueba la respuesta
+    
     if (Serial1.available() != 0)
     {
        answer[x] = Serial1.read();
        if(loc)
        gps.encode(answer[x]);
        x++;
-      // Comprueba si la respuesta es correcta
+      
       if (strstr(answer, return_code) != NULL)
       {
         b = 1;
       }
     }
   }
-  // Espera hasta tener una respuesta
+ 
   while ((b == 0) && ((millis() - old) < time));
   Serial.println(answer);
  
