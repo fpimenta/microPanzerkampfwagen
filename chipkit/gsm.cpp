@@ -1,26 +1,28 @@
 #include <TinyGPS++.h>
 
-TinyGPSPlus gps; // This library parses NMEA data
+TinyGPSPlus gps; // This library parses NMEA data, here we create and object of the TinyGPSPlus class
 
-char answer[120];
+char answer[120]; // Holds the returned data
  
 void setup() {
- Serial1.begin(9600);
+ Serial1.begin(9600); // The chipkit provides two Serial interfaces in hardware,  one will communicate with the computer via USB and the other will communicate with the SIM808
  Serial.begin(9600);
- delay(100);
- pinMode(2,OUTPUT);
+ pinMode(29,INPUT); // Three buttons to interface with the chipkit while not connected to the computer
+ pinMode(30,INPUT);
+ pinMode(31,INPUT);
+ pinMode(2,OUTPUT); // Two LEDs will help to know the program state whenever the chipkit is not connected to the computer
  pinMode(3,OUTPUT);
  sendAT("AT", "OK", 1000,0); // Check connection
  sendAT("AT+CPIN?", "OK", 1000,0); // Unlock SIM
-  while ( sendAT("AT+CREG?", "+CREG: 0,1", 1000,0) == 0 ) // Loops until it finds gsm signal
-  {
-    delay(100);
-  }
-  Serial.println("Connected.");
-  sendAT("AT+CLIP=1\r", "OK", 1000,0); // Activate call identification
-  sendAT("AT+CMGF=1\r", "OK", 1000,0); // Activate SMS
-  sendAT("AT+CGPSPWR=1\r", "OK", 1000,0); // Power up the GPS
-  digitalWrite(3,HIGH); // Ready to make calls and send messages
+ while ( sendAT("AT+CREG?", "+CREG: 0,1", 1000,0) == 0 ) // Loops until it finds gsm signal
+  delay(100);
+ digitalWrite(3,HIGH); // Ready to make calls and send messages, light up LED for one second
+ Serial.println("Connected.");
+ sendAT("AT+CLIP=1\r", "OK", 1000,0); // Activate call identification
+ sendAT("AT+CMGF=1\r", "OK", 1000,0); // Activate SMS
+ sendAT("AT+CGPSPWR=1\r", "OK", 1000,0); // Power up the GPS
+ delay(1000);
+ digitalWrite(3,LoW);
 }
  
 void loop() {
@@ -31,25 +33,26 @@ void loop() {
  }
  if(r == 'c' || digitalRead(29) == HIGH){ // Make a call. The number is hardcoded for simplification
   Serial.println("Making a call");
+  digitalWrite(3,HIGH);
   sendAT("ATDXXXXXXXXX;", "OK", 1000,0);
+  digitalWrite(3,LOW);
  }
- if(r == 's'  || digitalRead(30) == HIGH){ // Send a message with the position data
-  char sms[60] ; 
+ if(r == 's'  || digitalRead(30) == HIGH){ // Send a message with the position data -in this case, latitude, longitude and altitude
+  char sms[60]; // Holds the data to send
   sprintf(sms, "Lat: %f\nLon: %f\nAlt:%f\x1A \r\n", gps.location.lat(),gps.location.lng(),gps.altitude.meters());
   char aux_str[120];
   Serial.println("Sending SMS...");
- 
+  digitalWrite(3,HIGH);
   sprintf(aux_str, "AT+CMGS=\"XXXXXXXXX\"", strlen(sms)); // Number to send SMS
-    //SMS text
-    if (sendAT(aux_str, ">", 10000,0) == 1)
-    {
+  //AT commands to send the SMS
+  if (sendAT(aux_str, ">", 10000,0) == 1)
       sendAT(sms, "OK", 10000,0);
-    }
-    Serial.println("SMS sent");
-   
+    
+  Serial.println("SMS sent");
+  digitalWrite(3,LOW); 
  }
  if(r == 'g' || digitalRead(31) == HIGH){ // Loops until it finds gps signal, after that it just updates the data
-    Serial.println("Finding GPS");
+   Serial.println("Finding GPS");
     digitalWrite(2, HIGH);
     while ( sendAT("AT+CGPSSTATUS?", "+CGPSSTATUS: Location 3D Fix", 1000,0) == 0 ) // It usually takes a lot to find signal
     {
