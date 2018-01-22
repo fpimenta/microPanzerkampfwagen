@@ -70,7 +70,7 @@ The module also supports functions based on the GSM network such as calls, sendi
 Sending the SMS required setting the number and the message to send.
 
 The circuit used was something like 
-![sim808_chem](/images/sim808.png)
+![sim808_chem](/schematics/sim808.png)
 
 ## The App
 The course was about microcontrollers, there was no point in spending much time writing the application, so I used the **MIT App Inventor** which lets you easily develop an Android app by dragging and dropping blocks of code, similar to **Scratch**.
