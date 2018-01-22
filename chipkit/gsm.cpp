@@ -1,11 +1,7 @@
-/*
-
-
-*/
-
 #include <TinyGPS++.h>
 
 TinyGPSPlus gps; // This library parses NMEA data
+
 char answer[120];
  
 void setup() {
@@ -35,7 +31,7 @@ void loop() {
  }
  if(r == 'c' || digitalRead(29) == HIGH){ // Make a call. The number is hardcoded for simplification
   Serial.println("Making a call");
-  sendAT("ATD968174036;", "OK", 1000,0);
+  sendAT("ATDXXXXXXXXX;", "OK", 1000,0);
  }
  if(r == 's'  || digitalRead(30) == HIGH){ // Send a message with the position data
   char sms[60] ; 
@@ -43,7 +39,7 @@ void loop() {
   char aux_str[120];
   Serial.println("Sending SMS...");
  
-  sprintf(aux_str, "AT+CMGS=\"968174036\"", strlen(sms)); // Number to send SMS
+  sprintf(aux_str, "AT+CMGS=\"XXXXXXXXX\"", strlen(sms)); // Number to send SMS
     //SMS text
     if (sendAT(aux_str, ">", 10000,0) == 1)
     {
