@@ -54,6 +54,10 @@ Of course, the Panzer wouldn't be complete if it wasn't capable of firing ammo. 
 
 To control the tank via an Android app, I used bluetooth, making use of a bluetooth module (HC-06) to communicate with our phone. The communication between the chipKIT and the HC-06 was done using Serial communication, with a baud rate of 9600. 
 
+The circuit for the robot was something like
+![sim808_chem](/schematics/panzer_bb.png)
+
+Note that two L298N controllers were used instead of one, I omited that from the schematic for simplification.
 ## The GPS and GSM
 
 Using a SIM808 module, I was able to both make calls and retrieve the location using GPS and then sending the location via SMS to a pre-defined number.
