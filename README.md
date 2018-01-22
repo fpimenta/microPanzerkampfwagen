@@ -3,11 +3,11 @@
 In the scope of the Computers discipline I had to develop a final project to apply all the knowledge learned during the course. I developed a chipkit UNO32 based Panzer, connected trough bluetooth to an app developed using MIT App Inventor. The robot also informs it's GPS location via GSM, sending an SMS when requested. 
 
 ## The Robot
-We used a car kit we had laying around, similar to the one in the image
+I used a car kit I had laying around, similar to the one in the image
 
 ![car kit](/images/robot_car_kit.jpeg)
 
-We powered the car with 3x 18650 batteries and the CHIPkits with a 5V powerbank. Overall, excluding parts used for fixing everything and the chassis itself and some additional circuitry (relay, switches,...), the materials consisted in:
+The car and ChipKit were powered with 3x 18650 batteries. Overall, excluding parts used for fixing everything and the chassis itself and some additional circuitry (relay, switches,...), the materials consisted in:
 
 **2x L298n motor drivers<br>
 4x DC brush motors<br>
@@ -24,7 +24,7 @@ I used 4x DC brushed motors, so to control them I opted for two L298N controller
 
 **1/14-** + Motor Pins<br>
 **2/13-**- Motor Pins<br>
-**3-** We leaved this jumper as the power we were supplying was around +12V DC<br>
+**3-** Leave this jumper if the voltage you are supplying is around +12V DC<br>
 **4-** + 12V DC<br>
 **5-** GND<br>
 **6-** + 5V Output<br>
