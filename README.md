@@ -68,7 +68,7 @@ void loop() {
    } 
 }
 ```
-## The GPS and GPS
+## The GPS and GSM
 
 Using a SIM808 module, I was able to both make calls and retrieve the location using GPS and then sending the location via SMS to a pre-defined number.
 The interface with the module could be make by sending AT commands via Serial. As sending AT commands was the central part for the programm, I developed a function that sent an AT command and checked if the returned response was the one expected.
