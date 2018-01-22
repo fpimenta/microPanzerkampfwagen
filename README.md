@@ -73,11 +73,15 @@ void loop() {
 Using a SIM808 module, I was able to both make calls and retrieve the location using GPS and then sending the location via SMS to a pre-defined number.
 The interface with the module could be make by sending AT commands via Serial. As sending AT commands was the central part for the programm, I developed a function that sent an AT command and checked if the returned response was the one expected.
 ![sim808](/images/sim808.jpg)
+
 ### GPS
+
 The SIM808 module supports GPS and you can interface with it via AT commands listed in the documentation. After the module finds its position (which usually takes some long minutes), you can query it for the location, which, in my case, was retrieved in the popular NMEA format. This data was passed to the [TinyGPS library](http://arduiniana.org/libraries/tinygpsplus/) for parsing, after that it was quite trivial to get the required data, latitude, longitude, speed and such.
 
 ### GSM
 
+The module also supports functions based on the GSM network such as calls, sending and receiving messages or making HTTP or FTP requests. In this project, I added support for calls and SMS to send the location data. On the setup function, I made the device wait for network connection, after that, making calls was just sending the AT command **ATDXXXXXXXXX;"** (replacing XXX with the number you want to call), the module handled the microphone and speakers integration.
+Sending the SMS required setting the number and the message to send.
 
 ## The App
 The course was about microcontrollers, there was no point in spending much time writing the application, so I used the **MIT App Inventor** which lets you easily develop an Android app by dragging and dropping blocks of code, similar to **Scratch**.
