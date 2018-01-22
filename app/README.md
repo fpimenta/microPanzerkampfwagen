@@ -1,1 +1,1 @@
-Here you can access the APK and the project file (.aia) for the app. We used the [MIT App Inventor](http://appinventor.mit.edu/explore/) tool to develop the applicaton that acts as an interface between the user and the robot.
+Here you can access the APK and the project file (.aia) for the app. I used the [MIT App Inventor](http://appinventor.mit.edu/explore/) tool to develop the applicaton that acts as an interface between the user and the robot.
