@@ -42,7 +42,7 @@ void loop() {
   sprintf(sms, "Lat: %f\nLon: %f\nAlt:%f\x1A \r\n", gps.location.lat(),gps.location.lng(),gps.altitude.meters());
   char aux_str[120];
   Serial.println("Sending SMS...");
-  //sendAT("AT+CMGF=1\r", "OK", 1000,0); 
+ 
   sprintf(aux_str, "AT+CMGS=\"968174036\"", strlen(sms)); // Number to send SMS
     //SMS text
     if (sendAT(aux_str, ">", 10000,0) == 1)
