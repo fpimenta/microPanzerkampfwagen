@@ -1,3 +1,4 @@
+#include "Arduino.h"
 #include <TinyGPS++.h>
 
 TinyGPSPlus gps; // This library parses NMEA data, here we create and object of the TinyGPSPlus class
