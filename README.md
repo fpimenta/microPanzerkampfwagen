@@ -5,7 +5,7 @@ In the scope of the Computers discipline I had to develop a final project to app
 ## The Robot
 I used a car kit I had laying around, similar to the one in the image
 
-![car kit](/images/robot_car_kit.jpeg)
+![volt](/images/volt.jpg)
 
 The car and ChipKit were powered with 3x 18650 batteries. Overall, excluding parts used for fixing everything, the chassis itself and some additional circuitry (leds, switches,...), the materials consisted in:
 
